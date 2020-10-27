@@ -3,6 +3,7 @@ namespace GDO\FontRoboto;
 
 use GDO\Core\GDO_Module;
 use GDO\UI\GDT_FontWeight;
+use GDO\DB\GDT_Checkbox;
 
 /**
  * Includes Roboto Font CSS on init.
@@ -30,18 +31,23 @@ final class Module_FontRoboto extends GDO_Module
     {
         return array(
             GDT_FontWeight::make('font_weight')->initial('400'),
+            GDT_Checkbox::make('font_include')->initial('1'),
         );
     }
-    public function getFontWeight() { return $this->getConfigVar('font_weight'); }
+    public function cfgFontWeight() { return $this->getConfigVar('font_weight'); }
+    public function cfgIncludeFont() { return $this->getConfigVar('font_include'); }
     
     ###########
     ### CSS ###
     ###########
     public function onIncludeScripts()
     {
-        $weight = $this->getFontWeight();
+        $weight = $this->cfgFontWeight();
         $this->addBowerCSS("fontsource-roboto/{$weight}.css"); # Font face
-        $this->addCSS('css/gdo6-roboto.css'); # Body style
+        if ($this->cfgIncludeFont())
+        {
+            $this->addCSS('css/gdo6-roboto.css'); # Body style
+        }
     }
     
 }
