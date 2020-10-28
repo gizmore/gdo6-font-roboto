@@ -30,7 +30,7 @@ final class Module_FontRoboto extends GDO_Module
     public function getConfig()
     {
         return array(
-            GDT_FontWeight::make('font_weight')->initial('400'),
+            GDT_FontWeight::make('font_weight')->enumValues('100', '200', '300', '400', '500', '700', '900')->initial('400'),
             GDT_Checkbox::make('font_include')->initial('1'),
         );
     }
